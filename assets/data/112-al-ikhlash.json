@@ -1,0 +1,41 @@
+{
+  "surah_name": "Al-Ikhlas",
+  "juz_number": 30,
+  "surah_number": 112,
+  "audio_file": "audio/112_Al-Ikhlas.mp3",
+  "audio_duration": 22.0,
+  "verses": [
+    {
+      "number": 1,
+      "text": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "translation": "Katakanlah (Muhammad), Dialah Allah, Yang Maha Esa.",
+      "audio_path": "audio/112_Al-Ikhlas.mp3",
+      "start_time": 0,
+      "ideal_duration": 3.5
+    },
+    {
+      "number": 2,
+      "text": "اللَّهُ الصَّمَدُ",
+      "translation": "Allah tempat meminta segala sesuatu.",
+      "audio_path": "audio/112_Al-Ikhlas.mp3",
+      "start_time": 4,
+      "ideal_duration": 3.0
+    },
+    {
+      "number": 3,
+      "text": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+      "translation": "Dia tidak beranak dan tidak pula diperanakkan.",
+      "audio_path": "audio/112_Al-Ikhlas.mp3",
+      "start_time": 8,
+      "ideal_duration": 4.5
+    },
+    {
+      "number": 4,
+      "text": "وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+      "translation": "Dan tidak ada sesuatu yang setara dengan Dia.",
+      "audio_path": "audio/112_Al-Ikhlas.mp3",
+      "start_time": 13,
+      "ideal_duration": 5.0
+    }
+  ]
+}

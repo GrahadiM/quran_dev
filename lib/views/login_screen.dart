@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/auth_viewmodel.dart';
-import '../viewmodels/quran_viewmodel.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _pinController = TextEditingController();
@@ -12,7 +11,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -31,7 +30,11 @@ class LoginScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () => authVM.login(_pinController.text),
-              child: Text("Masuk"),
+              child: Text(
+                "Masuk",
+                style: TextStyle(fontSize: 16, color: Colors.black),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
