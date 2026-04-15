@@ -10,7 +10,6 @@ class DetailSurahScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final quranVM = Provider.of<QuranViewModel>(context);
 
-    // Tampilan Loading jika data belum siap
     if (quranVM.isLoading || quranVM.verses.isEmpty) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator(color: Colors.green)),
@@ -18,7 +17,6 @@ class DetailSurahScreen extends StatelessWidget {
     }
 
     final targetAyat = quranVM.currentAyat;
-    // Teks Arab dipecah menjadi list kata untuk feedback visual
     final words = targetAyat.teks.split(' ');
 
     return Scaffold(
@@ -35,47 +33,68 @@ class DetailSurahScreen extends StatelessWidget {
               padding: const EdgeInsets.all(25),
               child: Column(
                 children: [
-                  // Status Skor Akurasi
                   if (quranVM.accuracyScore > 0)
                     _buildScoreBadge(quranVM.accuracyScore),
-
                   const SizedBox(height: 20),
 
-                  // Area Teks Arab dengan Feedback Visual (Hijau/Merah)
+                  // Teks Arab dengan Feedback Warna & Tombol Play per Kata
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: Wrap(
                       alignment: WrapAlignment.center,
-                      spacing: 10,
-                      runSpacing: 10,
+                      spacing: 15,
+                      runSpacing: 30,
                       children: List.generate(words.length, (index) {
-                        // Logika Penentuan Warna Per Kata
                         Color wordColor = Colors.black87;
-                        if (quranVM.successIndices.contains(index)) {
-                          wordColor = Colors.green; // Benar
-                        } else if (quranVM.errorIndices.contains(index)) {
-                          wordColor = Colors.red; // Salah/Terlewat
-                        }
+                        if (quranVM.successIndices.contains(index))
+                          wordColor = Colors.green;
+                        if (quranVM.errorIndices.contains(index))
+                          wordColor = Colors.red;
 
-                        return Text(
-                          words[index],
-                          style: TextStyle(
-                            fontSize: 38,
-                            fontFamily: 'Amiri',
-                            height: 2,
-                            color: wordColor,
-                            fontWeight: wordColor != Colors.black87
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                          ),
+                        bool isWordPlaying = quranVM.activeWordIndex == index;
+
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              words[index],
+                              style: TextStyle(
+                                fontSize: 38,
+                                fontFamily: 'Amiri',
+                                color: wordColor,
+                                fontWeight: isWordPlaying
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                            // Perbaikan EdgeInsets: Menggunakan .only(top: 5)
+                            GestureDetector(
+                              onTap: () => quranVM.playWordAudio(index),
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 5),
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  color: isWordPlaying
+                                      ? Colors.green
+                                      : Colors.grey[100],
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  isWordPlaying ? Icons.stop : Icons.volume_up,
+                                  size: 14,
+                                  color: isWordPlaying
+                                      ? Colors.white
+                                      : Colors.grey[600],
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       }),
                     ),
                   ),
 
-                  const SizedBox(height: 30),
-
-                  // Terjemahan
+                  const SizedBox(height: 40),
                   Text(
                     targetAyat.terjemahan,
                     textAlign: TextAlign.center,
@@ -90,10 +109,7 @@ class DetailSurahScreen extends StatelessWidget {
             ),
           ),
 
-          // Animasi Waveform saat mendengarkan (Mic aktif)
           if (quranVM.isListening) const WaveformAnimation(),
-
-          // Panel Kontrol Bawah
           _buildControlPanel(context, quranVM, targetAyat),
         ],
       ),
@@ -143,21 +159,26 @@ class DetailSurahScreen extends StatelessWidget {
             quranVM.correctionStatus,
             style: TextStyle(
               color: quranVM.isListening ? Colors.red : Colors.grey[600],
-              fontSize: 14,
-              fontWeight: quranVM.isListening
-                  ? FontWeight.bold
-                  : FontWeight.normal,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 15),
-
-          // Tombol Audio Contoh
           ElevatedButton.icon(
             onPressed: () => quranVM.playExampleAudio(targetAyat),
-            icon: Icon(quranVM.isPlaying ? Icons.stop : Icons.play_arrow),
-            label: Text(quranVM.isPlaying ? "Berhenti" : "Dengarkan Qori"),
+            icon: Icon(
+              quranVM.isPlaying && quranVM.activeWordIndex == null
+                  ? Icons.stop
+                  : Icons.play_arrow,
+            ),
+            label: Text(
+              quranVM.isPlaying && quranVM.activeWordIndex == null
+                  ? "Berhenti"
+                  : "Dengarkan Qori Full",
+            ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: quranVM.isPlaying
+              backgroundColor:
+                  quranVM.isPlaying && quranVM.activeWordIndex == null
                   ? Colors.red
                   : Colors.blueGrey[800],
               foregroundColor: Colors.white,
@@ -167,37 +188,28 @@ class DetailSurahScreen extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-
-          // Tombol Navigasi & Mic
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                 onPressed: quranVM.previousAyat,
-                icon: const Icon(Icons.arrow_back_ios_rounded, size: 28),
-                color: Colors.green[700],
+                icon: const Icon(Icons.arrow_back_ios_rounded),
               ),
               GestureDetector(
                 onLongPressStart: (_) => quranVM.startListening(targetAyat),
                 onLongPressEnd: (_) => quranVM.stopListening(),
                 child: CircleAvatar(
-                  radius: 38,
+                  radius: 35,
                   backgroundColor: quranVM.isListening
                       ? Colors.red
-                      : Colors.green[600],
-                  child: Icon(
-                    quranVM.isListening ? Icons.stop : Icons.mic,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+                      : Colors.green,
+                  child: const Icon(Icons.mic, color: Colors.white, size: 35),
                 ),
               ),
               IconButton(
                 onPressed: quranVM.nextAyat,
-                icon: const Icon(Icons.arrow_forward_ios_rounded, size: 28),
-                color: Colors.green[700],
+                icon: const Icon(Icons.arrow_forward_ios_rounded),
               ),
             ],
           ),
@@ -207,10 +219,8 @@ class DetailSurahScreen extends StatelessWidget {
   }
 }
 
-// Widget Animasi Waveform
 class WaveformAnimation extends StatefulWidget {
   const WaveformAnimation({super.key});
-
   @override
   State<WaveformAnimation> createState() => _WaveformAnimationState();
 }
@@ -218,7 +228,6 @@ class WaveformAnimation extends StatefulWidget {
 class _WaveformAnimationState extends State<WaveformAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -230,7 +239,7 @@ class _WaveformAnimationState extends State<WaveformAnimation>
 
   @override
   void dispose() {
-    _controller.dispose(); // Mencegah memory leak
+    _controller.dispose();
     super.dispose();
   }
 
@@ -238,25 +247,21 @@ class _WaveformAnimationState extends State<WaveformAnimation>
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(15, (index) {
           return AnimatedBuilder(
             animation: _controller,
-            builder: (context, child) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                width: 4,
-                // Variasi tinggi baris secara acak dikombinasikan dengan animasi
-                height:
-                    10 + (Random(index).nextDouble() * 40 * _controller.value),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              );
-            },
+            builder: (context, child) => Container(
+              margin: const EdgeInsets.symmetric(horizontal: 2),
+              width: 4,
+              height:
+                  10 + (Random(index).nextDouble() * 40 * _controller.value),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
           );
         }),
       ),
