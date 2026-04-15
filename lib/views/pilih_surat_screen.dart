@@ -16,9 +16,13 @@ class PilihSuratScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Pilih Surat (Juz 30)"),
-        backgroundColor: Colors.green,
+        title: const Text(
+          "Pilih Surat (Juz 30)",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.green[700],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: daftarSurat.length,
@@ -37,14 +41,16 @@ class PilihSuratScreen extends StatelessWidget {
             ),
             title: Text(
               surat['nama']!,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             subtitle: const Text("Juz 30"),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              // Reset state dan muat data surat baru
+              // Mengambil instance QuranViewModel
               final quranVM = context.read<QuranViewModel>();
-              quranVM.loadSurahData(surat['file']!);
+
+              // FIX: Menggunakan 'loadSurah' sesuai dengan definisi di ViewModel terbaru
+              quranVM.loadSurah(surat['file']!);
 
               Navigator.push(
                 context,
