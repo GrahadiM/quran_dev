@@ -1,0 +1,53 @@
+{
+  "surah_name": "Al-Falaq",
+  "surah_number": 113,
+  "juz_number": 30,
+  "audio_file": "audio/113_Al-Falaq.mp3",
+  "verses": [
+    {
+      "number": 1,
+      "text": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+      "translation": "Katakanlah, Aku berlindung kepada Tuhan yang menguasai subuh (fajar).",
+      "audio_path": "audio/113_Al-Falaq_01.mp3",
+      "start_time": 0,
+      "audio_duration": 4.0,
+      "ideal_duration": 6.0
+    },
+    {
+      "number": 2,
+      "text": "مِن شَرِّ مَا خَلَقَ",
+      "translation": "Dari kejahatan (makhluk yang) Dia ciptakan.",
+      "audio_path": "audio/113_Al-Falaq_02.mp3",
+      "start_time": 5,
+      "audio_duration": 3.0,
+      "ideal_duration": 4.5
+    },
+    {
+      "number": 3,
+      "text": "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+      "translation": "Dan dari kejahatan malam apabila telah gelap gulita.",
+      "audio_path": "audio/113_Al-Falaq_03.mp3",
+      "start_time": 9,
+      "audio_duration": 4.5,
+      "ideal_duration": 6.5
+    },
+    {
+      "number": 4,
+      "text": "وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ",
+      "translation": "Dan dari kejahatan (perempuan-perempuan) penyihir yang meniup pada buhul-buhul (talinya).",
+      "audio_path": "audio/113_Al-Falaq_04.mp3",
+      "start_time": 14,
+      "audio_duration": 5.0,
+      "ideal_duration": 7.5
+    },
+    {
+      "number": 5,
+      "text": "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+      "translation": "Dan dari kejahatan orang yang dengki apabila dia dengki.",
+      "audio_path": "audio/113_Al-Falaq_05.mp3",
+      "start_time": 20,
+      "audio_duration": 5.0,
+      "ideal_duration": 7.0
+    }
+  ]
+}

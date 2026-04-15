@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'viewmodels/auth_viewmodel.dart';
 import 'viewmodels/quran_viewmodel.dart';
 import 'views/login_screen.dart';
-import 'views/detail_surah_screen.dart';
+import 'views/pilih_surat_screen.dart';
+// import 'views/detail_surah_screen.dart';
 
 void main() {
   runApp(
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       // Logic Navigasi: Jika sudah login masuk ke Surah, jika belum ke Login
       home: Consumer<AuthViewModel>(
         builder: (context, authVM, child) {
-          return authVM.isLoggedIn ? const DetailSurahScreen() : LoginScreen();
+          return authVM.isLoggedIn ? const PilihSuratScreen() : LoginScreen();
         },
       ),
     );

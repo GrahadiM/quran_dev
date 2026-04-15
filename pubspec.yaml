@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.1.1
   speech_to_text: ^6.6.0
   audioplayers: 6.6.0
+  string_similarity: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +63,27 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/data/surah_ikhlas.json
+    - assets/data/112-al-ikhlash.json
+    - assets/data/113-al-falaq.json
+    - assets/data/114-an-nas.json
     - assets/audio/112_Al-Ikhlas.mp3
+    - assets/audio/112_Al-Ikhlas_01.mp3
+    - assets/audio/112_Al-Ikhlas_02.mp3
+    - assets/audio/112_Al-Ikhlas_03.mp3
+    - assets/audio/112_Al-Ikhlas_04.mp3
+    - assets/audio/113_Al-Falaq.mp3
+    - assets/audio/113_Al-Falaq_01.mp3
+    - assets/audio/113_Al-Falaq_02.mp3
+    - assets/audio/113_Al-Falaq_03.mp3
+    - assets/audio/113_Al-Falaq_04.mp3
+    - assets/audio/113_Al-Falaq_05.mp3
+    - assets/audio/114_An-Nas.mp3
+    - assets/audio/114_An-Nas_01.mp3
+    - assets/audio/114_An-Nas_02.mp3
+    - assets/audio/114_An-Nas_03.mp3
+    - assets/audio/114_An-Nas_04.mp3
+    - assets/audio/114_An-Nas_05.mp3
+    - assets/audio/114_An-Nas_06.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
