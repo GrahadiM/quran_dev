@@ -9,54 +9,68 @@
       "text": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
       "translation": "Katakanlah, Aku berlindung kepada Tuhannya manusia.",
       "audio_path": "audio/114_An-Nas_01.mp3",
-      "start_time": 0,
-      "audio_duration": 4.0,
-      "ideal_duration": 6.0
+      "segments": [
+        {"word": "قُلْ", "start": 0, "end": 450},
+        {"word": "أَعُوذُ", "start": 500, "end": 1200},
+        {"word": "بِرَبِّ", "start": 1250, "end": 1800},
+        {"word": "النَّاسِ", "start": 1850, "end": 3500}
+      ]
     },
     {
       "number": 2,
       "text": "مَلِكِ النَّاسِ",
       "translation": "Raja manusia.",
       "audio_path": "audio/114_An-Nas_02.mp3",
-      "start_time": 5,
-      "audio_duration": 2.5,
-      "ideal_duration": 4.0
+      "segments": [
+        {"word": "مَلِكِ", "start": 0, "end": 800},
+        {"word": "النَّاسِ", "start": 850, "end": 2200}
+      ]
     },
     {
       "number": 3,
       "text": "إِلَٰهِ النَّاسِ",
       "translation": "Sembahan manusia.",
       "audio_path": "audio/114_An-Nas_03.mp3",
-      "start_time": 8,
-      "audio_duration": 3.0,
-      "ideal_duration": 4.5
+      "segments": [
+        {"word": "إِلَٰهِ", "start": 0, "end": 900},
+        {"word": "النَّاسِ", "start": 950, "end": 2500}
+      ]
     },
     {
       "number": 4,
       "text": "مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
       "translation": "Dari kejahatan (bisikan) setan yang bersembunyi.",
       "audio_path": "audio/114_An-Nas_04.mp3",
-      "start_time": 12,
-      "audio_duration": 5.0,
-      "ideal_duration": 7.5
+      "segments": [
+        {"word": "مِن", "start": 0, "end": 400},
+        {"word": "شَرِّ", "start": 450, "end": 1000},
+        {"word": "الْوَسْوَاسِ", "start": 1050, "end": 2200},
+        {"word": "الْخَنَّاسِ", "start": 2250, "end": 3800}
+      ]
     },
     {
       "number": 5,
       "text": "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ",
       "translation": "Yang membisikkan (kejahatan) ke dalam dada manusia.",
       "audio_path": "audio/114_An-Nas_05.mp3",
-      "start_time": 18,
-      "audio_duration": 5.5,
-      "ideal_duration": 8.0
+      "segments": [
+        {"word": "الَّذِي", "start": 0, "end": 600},
+        {"word": "يُوَسْوِسُ", "start": 650, "end": 1500},
+        {"word": "فِي", "start": 1550, "end": 1900},
+        {"word": "صُدُورِ", "start": 1950, "end": 2600},
+        {"word": "النَّاسِ", "start": 2650, "end": 4000}
+      ]
     },
     {
       "number": 6,
       "text": "مِنَ الْجِنَّةِ وَالنَّاسِ",
       "translation": "Dari (golongan) jin dan manusia.",
       "audio_path": "audio/114_An-Nas_06.mp3",
-      "start_time": 25,
-      "audio_duration": 4.5,
-      "ideal_duration": 6.0
+      "segments": [
+        {"word": "مِنَ", "start": 0, "end": 500},
+        {"word": "الْجِنَّةِ", "start": 550, "end": 1400},
+        {"word": "وَالنَّاسِ", "start": 1450, "end": 3000}
+      ]
     }
   ]
 }

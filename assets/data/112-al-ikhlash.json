@@ -9,36 +9,47 @@
       "text": "قُلْ هُوَ اللَّهُ أَحَدٌ",
       "translation": "Katakanlah (Muhammad), Dialah Allah, Yang Maha Esa.",
       "audio_path": "audio/112_Al-Ikhlas_01.mp3",
-      "start_time": 0,
-      "audio_duration": 4.0,
-      "ideal_duration": 5.0
+      "segments": [
+        {"word": "قُلْ", "start": 0, "end": 500},
+        {"word": "هُوَ", "start": 550, "end": 1100},
+        {"word": "اللَّهُ", "start": 1150, "end": 2000},
+        {"word": "أَحَدٌ", "start": 2050, "end": 3500}
+      ]
     },
     {
       "number": 2,
       "text": "اللَّهُ الصَّمَدُ",
       "translation": "Allah tempat meminta segala sesuatu.",
       "audio_path": "audio/112_Al-Ikhlas_02.mp3",
-      "start_time": 4,
-      "audio_duration": 3.0,
-      "ideal_duration": 4.5
+      "segments": [
+        {"word": "اللَّهُ", "start": 0, "end": 1200},
+        {"word": "الصَّمَدُ", "start": 1250, "end": 2800}
+      ]
     },
     {
       "number": 3,
       "text": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
       "translation": "Dia tidak beranak dan tidak pula diperanakkan.",
       "audio_path": "audio/112_Al-Ikhlas_03.mp3",
-      "start_time": 8,
-      "audio_duration": 4.5,
-      "ideal_duration": 6.0
+      "segments": [
+        {"word": "لَمْ", "start": 0, "end": 400},
+        {"word": "يَلِدْ", "start": 450, "end": 1200},
+        {"word": "وَلَمْ", "start": 1250, "end": 1800},
+        {"word": "يُولَدْ", "start": 1850, "end": 3200}
+      ]
     },
     {
       "number": 4,
       "text": "وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
       "translation": "Dan tidak ada sesuatu yang setara dengan Dia.",
       "audio_path": "audio/112_Al-Ikhlas_04.mp3",
-      "start_time": 13,
-      "audio_duration": 5.5,
-      "ideal_duration": 7.0
+      "segments": [
+        {"word": "وَلَمْ", "start": 0, "end": 600},
+        {"word": "يَكُن", "start": 650, "end": 1200},
+        {"word": "لَّهُ", "start": 1250, "end": 1700},
+        {"word": "كُفُوًا", "start": 1750, "end": 2600},
+        {"word": "أَحَدٌ", "start": 2650, "end": 4000}
+      ]
     }
   ]
 }

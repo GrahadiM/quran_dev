@@ -18,17 +18,34 @@ class PilihSuratScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Pilih Surat (Juz 30)"),
         backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
       ),
       body: ListView.builder(
         itemCount: daftarSurat.length,
         itemBuilder: (context, index) {
           final surat = daftarSurat[index];
           return ListTile(
-            leading: CircleAvatar(child: Text(surat['no']!)),
-            title: Text(surat['nama']!),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            leading: CircleAvatar(
+              backgroundColor: Colors.green.shade100,
+              child: Text(
+                surat['no']!,
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            title: Text(
+              surat['nama']!,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+            subtitle: const Text("Juz 30"),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              context.read<QuranViewModel>().loadSurahData(surat['file']!);
+              // Reset state dan muat data surat baru
+              final quranVM = context.read<QuranViewModel>();
+              quranVM.loadSurahData(surat['file']!);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const DetailSurahScreen()),

@@ -9,8 +9,10 @@ class DetailSurahScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final quranVM = Provider.of<QuranViewModel>(context);
 
-    if (quranVM.isLoading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    if (quranVM.isLoading || quranVM.verses.isEmpty) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator(color: Colors.green)),
+      );
     }
 
     final targetAyat = quranVM.currentAyat;
@@ -19,10 +21,12 @@ class DetailSurahScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Ayat ${targetAyat.nomor}"),
         backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             quranVM.stopListening();
+            quranVM.stopAllAudio();
             Navigator.pop(context);
           },
         ),
@@ -34,88 +38,78 @@ class DetailSurahScreen extends StatelessWidget {
               padding: const EdgeInsets.all(25),
               child: Column(
                 children: [
-                  // Teks Arab
-                  Text(
-                    targetAyat.teks,
-                    style: const TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Amiri',
-                    ),
-                    textAlign: TextAlign.center,
+                  // Teks Arab dengan Highlight per kata
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 8,
+                    runSpacing: 12,
                     textDirection: TextDirection.rtl,
-                  ),
-                  const SizedBox(height: 20),
+                    children: List.generate(targetAyat.segments.length, (
+                      index,
+                    ) {
+                      final segment = targetAyat.segments[index];
+                      final bool isActive = quranVM.activeWordIndex == index;
 
-                  // Terjemahan
+                      return GestureDetector(
+                        onTap: () => quranVM.playWordAudio(segment, index),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isActive
+                                ? Colors.yellow.withOpacity(0.5)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(4),
+                            border: isActive
+                                ? Border.all(color: Colors.orange, width: 1)
+                                : null,
+                          ),
+                          child: Text(
+                            segment.word,
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontFamily:
+                                  'Amiri', // Pastikan font terdaftar di pubspec
+                              fontWeight: FontWeight.bold,
+                              color: isActive
+                                  ? Colors.green.shade900
+                                  : Colors.black87,
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 30),
                   Text(
                     targetAyat.terjemahan,
-                    style: const TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey,
-                    ),
                     textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 30),
-
-                  // --- FITUR BARU: OUTPUT TEKS AUDIO (TRANSKRIPSI) ---
-                  const Text(
-                    "Suara Anda terdeteksi sebagai:",
                     style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
+                      fontSize: 18,
+                      color: Colors.grey[700],
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey[300]!),
-                    ),
-                    child: Text(
-                      quranVM.userSpeech.isEmpty ||
-                              quranVM.userSpeech == "Mendengarkan..."
-                          ? "..."
-                          : quranVM.userSpeech,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Amiri',
-                        color: Colors.black87,
-                      ),
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
-                    ),
-                  ),
+                  const SizedBox(height: 40),
 
-                  // ---------------------------------------------------
-                  const SizedBox(height: 30),
-
-                  // Status Koreksi (Auto Correct Output)
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: quranVM.correctionStatus.contains("MasyaAllah")
-                          ? Colors.green[50]
-                          : Colors.orange[50],
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: quranVM.correctionStatus.contains("MasyaAllah")
-                            ? Colors.green
-                            : Colors.orange,
-                      ),
+                  // Tombol Putar Contoh Qori Full Ayat
+                  ElevatedButton.icon(
+                    onPressed: () => quranVM.playFullAudio(targetAyat),
+                    icon: Icon(
+                      quranVM.isPlaying
+                          ? Icons.stop_circle
+                          : Icons.play_circle_fill,
                     ),
-                    child: Text(
-                      quranVM.correctionStatus,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    label: Text(
+                      quranVM.isPlaying ? "Berhenti" : "Putar Contoh Qori",
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueGrey[800],
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(200, 50),
                     ),
                   ),
                 ],
@@ -123,26 +117,24 @@ class DetailSurahScreen extends StatelessWidget {
             ),
           ),
 
-          // Bottom Controls (Navigasi, Mic, Play)
+          // Panel Kontrol Bawah
           Container(
-            padding: const EdgeInsets.only(
-              bottom: 30,
-              left: 20,
-              right: 20,
-              top: 10,
-            ),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, -5),
-                ),
-              ],
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
+                Text(
+                  quranVM.correctionStatus,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -151,39 +143,26 @@ class DetailSurahScreen extends StatelessWidget {
                       onPressed: quranVM.currentIndex > 0
                           ? quranVM.previousAyat
                           : null,
-                      icon: const Icon(Icons.skip_previous, size: 40),
+                      icon: const Icon(Icons.skip_previous, size: 45),
                       color: Colors.green,
+                      disabledColor: Colors.grey,
                     ),
 
-                    // Tombol Mic (Hold to Speak)
+                    // Button Mic (Hold to talk)
                     GestureDetector(
                       onLongPressStart: (_) =>
-                          quranVM.startCorrection(targetAyat),
+                          quranVM.startListening(targetAyat),
                       onLongPressEnd: (_) => quranVM.stopListening(),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: quranVM.isListening
-                                ? Colors.red
-                                : Colors.green,
-                            child: Icon(
-                              quranVM.isListening ? Icons.stop : Icons.mic,
-                              color: Colors.white,
-                              size: 35,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            quranVM.isListening
-                                ? "Lepas untuk Selesai"
-                                : "Tahan untuk Bicara",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ],
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundColor: quranVM.isListening
+                            ? Colors.red
+                            : Colors.green,
+                        child: Icon(
+                          quranVM.isListening ? Icons.mic : Icons.mic_none,
+                          color: Colors.white,
+                          size: 35,
+                        ),
                       ),
                     ),
 
@@ -193,32 +172,11 @@ class DetailSurahScreen extends StatelessWidget {
                           quranVM.currentIndex < quranVM.verses.length - 1
                           ? quranVM.nextAyat
                           : null,
-                      icon: const Icon(Icons.skip_next, size: 40),
+                      icon: const Icon(Icons.skip_next, size: 45),
                       color: Colors.green,
+                      disabledColor: Colors.grey,
                     ),
                   ],
-                ),
-                const SizedBox(height: 20),
-
-                // Button Play Example
-                ElevatedButton.icon(
-                  onPressed: () => quranVM.playExampleAudio(targetAyat),
-                  icon: Icon(
-                    quranVM.isPlaying
-                        ? Icons.stop_circle
-                        : Icons.play_circle_fill,
-                  ),
-                  label: Text(
-                    quranVM.isPlaying ? "Berhenti" : "Putar Contoh Qori",
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey[800],
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
                 ),
               ],
             ),
