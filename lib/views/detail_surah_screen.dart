@@ -18,6 +18,7 @@ class DetailSurahScreen extends StatelessWidget {
     }
 
     final targetAyat = quranVM.currentAyat;
+    // Teks Arab dipecah menjadi list kata untuk feedback visual
     final words = targetAyat.teks.split(' ');
 
     return Scaffold(
@@ -34,13 +35,13 @@ class DetailSurahScreen extends StatelessWidget {
               padding: const EdgeInsets.all(25),
               child: Column(
                 children: [
-                  // Status Skor
+                  // Status Skor Akurasi
                   if (quranVM.accuracyScore > 0)
                     _buildScoreBadge(quranVM.accuracyScore),
 
                   const SizedBox(height: 20),
 
-                  // Area Teks Arab
+                  // Area Teks Arab dengan Feedback Visual (Hijau/Merah)
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: Wrap(
@@ -48,18 +49,24 @@ class DetailSurahScreen extends StatelessWidget {
                       spacing: 10,
                       runSpacing: 10,
                       children: List.generate(words.length, (index) {
+                        // Logika Penentuan Warna Per Kata
                         Color wordColor = Colors.black87;
-                        if (quranVM.successIndices.contains(index))
-                          wordColor = Colors.green;
-                        if (quranVM.errorIndices.contains(index))
-                          wordColor = Colors.red;
+                        if (quranVM.successIndices.contains(index)) {
+                          wordColor = Colors.green; // Benar
+                        } else if (quranVM.errorIndices.contains(index)) {
+                          wordColor = Colors.red; // Salah/Terlewat
+                        }
 
                         return Text(
                           words[index],
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 38,
                             fontFamily: 'Amiri',
                             height: 2,
+                            color: wordColor,
+                            fontWeight: wordColor != Colors.black87
+                                ? FontWeight.bold
+                                : FontWeight.normal,
                           ),
                         );
                       }),
@@ -67,6 +74,8 @@ class DetailSurahScreen extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 30),
+
+                  // Terjemahan
                   Text(
                     targetAyat.terjemahan,
                     textAlign: TextAlign.center,
@@ -81,7 +90,10 @@ class DetailSurahScreen extends StatelessWidget {
             ),
           ),
 
+          // Animasi Waveform saat mendengarkan (Mic aktif)
           if (quranVM.isListening) const WaveformAnimation(),
+
+          // Panel Kontrol Bawah
           _buildControlPanel(context, quranVM, targetAyat),
         ],
       ),
@@ -109,7 +121,7 @@ class DetailSurahScreen extends StatelessWidget {
   Widget _buildControlPanel(
     BuildContext context,
     QuranViewModel quranVM,
-    targetAyat,
+    dynamic targetAyat,
   ) {
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 20, 25, 40),
@@ -119,7 +131,7 @@ class DetailSurahScreen extends StatelessWidget {
           BoxShadow(
             color: Colors.black12,
             blurRadius: 10,
-            offset: Offset(0, -2),
+            offset: const Offset(0, -2),
           ),
         ],
         borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
@@ -129,9 +141,17 @@ class DetailSurahScreen extends StatelessWidget {
         children: [
           Text(
             quranVM.correctionStatus,
-            style: TextStyle(color: Colors.grey[600], fontSize: 13),
+            style: TextStyle(
+              color: quranVM.isListening ? Colors.red : Colors.grey[600],
+              fontSize: 14,
+              fontWeight: quranVM.isListening
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+            ),
           ),
           const SizedBox(height: 15),
+
+          // Tombol Audio Contoh
           ElevatedButton.icon(
             onPressed: () => quranVM.playExampleAudio(targetAyat),
             icon: Icon(quranVM.isPlaying ? Icons.stop : Icons.play_arrow),
@@ -147,28 +167,37 @@ class DetailSurahScreen extends StatelessWidget {
               ),
             ),
           ),
+
           const SizedBox(height: 20),
+
+          // Tombol Navigasi & Mic
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                 onPressed: quranVM.previousAyat,
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_rounded, size: 28),
+                color: Colors.green[700],
               ),
               GestureDetector(
                 onLongPressStart: (_) => quranVM.startListening(targetAyat),
                 onLongPressEnd: (_) => quranVM.stopListening(),
                 child: CircleAvatar(
-                  radius: 35,
+                  radius: 38,
                   backgroundColor: quranVM.isListening
                       ? Colors.red
-                      : Colors.green,
-                  child: const Icon(Icons.mic, color: Colors.white, size: 35),
+                      : Colors.green[600],
+                  child: Icon(
+                    quranVM.isListening ? Icons.stop : Icons.mic,
+                    color: Colors.white,
+                    size: 35,
+                  ),
                 ),
               ),
               IconButton(
                 onPressed: quranVM.nextAyat,
-                icon: const Icon(Icons.arrow_forward_ios),
+                icon: const Icon(Icons.arrow_forward_ios_rounded, size: 28),
+                color: Colors.green[700],
               ),
             ],
           ),
@@ -178,7 +207,7 @@ class DetailSurahScreen extends StatelessWidget {
   }
 }
 
-// Widget Animasi Waveform Sederhana
+// Widget Animasi Waveform
 class WaveformAnimation extends StatefulWidget {
   const WaveformAnimation({super.key});
 
@@ -200,6 +229,12 @@ class _WaveformAnimationState extends State<WaveformAnimation>
   }
 
   @override
+  void dispose() {
+    _controller.dispose(); // Mencegah memory leak
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 60,
@@ -213,7 +248,9 @@ class _WaveformAnimationState extends State<WaveformAnimation>
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 2),
                 width: 4,
-                height: 10 + (Random().nextDouble() * 40 * _controller.value),
+                // Variasi tinggi baris secara acak dikombinasikan dengan animasi
+                height:
+                    10 + (Random(index).nextDouble() * 40 * _controller.value),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(5),
@@ -224,11 +261,5 @@ class _WaveformAnimationState extends State<WaveformAnimation>
         }),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

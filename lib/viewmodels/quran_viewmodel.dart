@@ -113,13 +113,16 @@ class QuranViewModel extends ChangeNotifier {
     _errorIndices.clear();
     _successIndices.clear();
 
+    // Memecah teks target menjadi list kata
     List<String> targetWords = target.teks.split(' ');
+    // Memecah hasil ucapan user menjadi list kata
     List<String> userWords = _userSpeech.split(' ');
 
     for (int i = 0; i < targetWords.length; i++) {
       String cleanTarget = _normalizeArabic(targetWords[i]);
       bool foundCorrect = false;
 
+      // Mencari apakah kata target ada dalam ucapan user (dengan toleransi kemiripan)
       for (String uw in userWords) {
         String cleanUser = _normalizeArabic(uw);
         if (cleanUser == cleanTarget ||
@@ -130,21 +133,20 @@ class QuranViewModel extends ChangeNotifier {
       }
 
       if (foundCorrect) {
-        _successIndices.add(i);
+        _successIndices.add(i); // Masuk ke list hijau
       } else {
-        _errorIndices.add(i);
+        _errorIndices.add(i); // Masuk ke list merah
       }
     }
 
     _accuracyScore = (_successIndices.length / targetWords.length) * 100;
 
     if (_errorIndices.isEmpty && _successIndices.isNotEmpty) {
-      _correctionStatus =
-          "MasyaAllah! Akurasi: ${_accuracyScore.toStringAsFixed(0)}%";
+      _correctionStatus = "MasyaAllah! Akurasi Sempurna!";
       HapticFeedback.lightImpact();
     } else {
       _correctionStatus =
-          "Akurasi: ${_accuracyScore.toStringAsFixed(0)}%. Perbaiki kata merah.";
+          "Akurasi: ${_accuracyScore.toStringAsFixed(0)}%. Perbaiki kata yang merah.";
       HapticFeedback.vibrate();
     }
     notifyListeners();
