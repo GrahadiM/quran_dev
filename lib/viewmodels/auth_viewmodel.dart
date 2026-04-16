@@ -10,7 +10,8 @@ class AuthViewModel extends ChangeNotifier {
     UserSession(className: "Kelas 9A", pin: "999999", limit: 20),
   ];
 
-  bool _isLoggedIn = false;
+  // bool _isLoggedIn = false;
+  bool _isLoggedIn = true; // Set true untuk bypass login saat demo
   String? _currentClass;
   String _errorMessage = "";
 

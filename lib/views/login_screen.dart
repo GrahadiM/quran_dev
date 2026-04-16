@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () => authVM.login(_pinController.text),
               child: Text(
                 "Masuk",
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 16, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ),

@@ -118,18 +118,41 @@ class DetailSurahScreen extends StatelessWidget {
 
   Widget _buildScoreBadge(double score) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: score > 80 ? Colors.green[50] : Colors.orange[50],
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: score > 80 ? Colors.green : Colors.orange),
-      ),
-      child: Text(
-        "Akurasi: ${score.toStringAsFixed(0)}%",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: score > 80 ? Colors.green[900] : Colors.orange[900],
+        color: Colors.amber.shade50,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.amber.shade300, width: 2),
+        image: DecorationImage(
+          image: NetworkImage(
+            'https://www.transparenttextures.com/patterns/islamic-art.png',
+          ), // Opsional: Pattern halus
+          opacity: 0.1,
         ),
+      ),
+      child: Column(
+        children: [
+          Text(
+            "SKOR TAJWID & KELANCARAN",
+            style: TextStyle(
+              color: Colors.amber.shade900,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            "${score.toStringAsFixed(0)}%",
+            style: TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+              color: Colors.green.shade800,
+            ),
+          ),
+          Text(
+            score > 80 ? "MasyaAllah!" : "Terus Berlatih!",
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ],
       ),
     );
   }

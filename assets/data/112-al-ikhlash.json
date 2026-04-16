@@ -44,10 +44,10 @@
       "translation": "Dan tidak ada sesuatu yang setara dengan Dia.",
       "audio_path": "audio/112_Al-Ikhlas_04.mp3",
       "segments": [
-        {"word": "وَلَمْ", "start": 0, "end": 750},
-        {"word": "يَكُن", "start": 750, "end": 1800},
-        {"word": "لَّهُ", "start": 1800, "end": 2800},
-        {"word": "كُفُوًا", "start": 2800, "end": 3500},
+        {"word": "وَلَمْ", "start": 0, "end": 780},
+        {"word": "يَكُن", "start": 780, "end": 1800},
+        {"word": "لَّهُ", "start": 1800, "end": 2720},
+        {"word": "كُفُوًا", "start": 2720, "end": 3500},
         {"word": "أَحَدٌ", "start": 3500, "end": 5000}
       ]
     }
