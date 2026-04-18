@@ -10,10 +10,10 @@
       "translation": "Katakanlah, Aku berlindung kepada Tuhan yang menguasai subuh (fajar).",
       "audio_path": "audio/113_Al-Falaq_01.mp3",
       "segments": [
-        {"word": "قُلْ", "start": 0, "end": 450},
-        {"word": "أَعُوذُ", "start": 500, "end": 1200},
-        {"word": "بِرَبِّ", "start": 1250, "end": 1900},
-        {"word": "الْفَلَقِ", "start": 1950, "end": 3500}
+        {"word": "قُلْ", "start": 0, "end": 700},
+        {"word": "أَعُوذُ", "start": 700, "end": 1700},
+        {"word": "بِرَبِّ", "start": 1700, "end": 2500},
+        {"word": "الْفَلَقِ", "start": 2500, "end": 3600}
       ]
     },
     {
@@ -22,10 +22,10 @@
       "translation": "Dari kejahatan (makhluk yang) Dia ciptakan.",
       "audio_path": "audio/113_Al-Falaq_02.mp3",
       "segments": [
-        {"word": "مِن", "start": 0, "end": 400},
-        {"word": "شَرِّ", "start": 450, "end": 1000},
-        {"word": "مَا", "start": 1050, "end": 1500},
-        {"word": "خَلَقَ", "start": 1550, "end": 2800}
+        {"word": "مِن", "start": 0, "end": 2400},
+        {"word": "شَرِّ", "start": 2400, "end": 3200},
+        {"word": "مَا", "start": 3200, "end": 3700},
+        {"word": "خَلَقَ", "start": 3700, "end": 5500}
       ]
     },
     {
@@ -34,11 +34,11 @@
       "translation": "Dan dari kejahatan malam apabila telah gelap gulita.",
       "audio_path": "audio/113_Al-Falaq_03.mp3",
       "segments": [
-        {"word": "وَمِن", "start": 0, "end": 600},
-        {"word": "شَرِّ", "start": 650, "end": 1100},
-        {"word": "غَاسِقٍ", "start": 1150, "end": 1900},
-        {"word": "إِذَا", "start": 1950, "end": 2400},
-        {"word": "وَقَبَ", "start": 2450, "end": 3800}
+        {"word": "وَمِن", "start": 0, "end": 1400},
+        {"word": "شَرِّ", "start": 1400, "end": 2200},
+        {"word": "غَاسِقٍ", "start": 2200, "end": 3300},
+        {"word": "إِذَا", "start": 3300, "end": 4200},
+        {"word": "وَقَبَ", "start": 4200, "end": 5500}
       ]
     },
     {
@@ -47,11 +47,11 @@
       "translation": "Dan dari kejahatan (perempuan-perempuan) penyihir yang meniup pada buhul-buhul (talinya).",
       "audio_path": "audio/113_Al-Falaq_04.mp3",
       "segments": [
-        {"word": "وَمِن", "start": 0, "end": 500},
-        {"word": "شَرِّ", "start": 550, "end": 1000},
-        {"word": "النَّفَّاثَاتِ", "start": 1050, "end": 2200},
-        {"word": "فِي", "start": 2250, "end": 2600},
-        {"word": "الْعُقَدِ", "start": 2650, "end": 4200}
+        {"word": "وَمِن", "start": 0, "end": 2200},
+        {"word": "شَرِّ", "start": 2200, "end": 4100},
+        {"word": "النَّفَّاثَاتِ", "start": 4100, "end": 5700},
+        {"word": "فِي", "start": 5700, "end": 6200},
+        {"word": "الْعُقَدِ", "start": 6200, "end": 7500}
       ]
     },
     {
@@ -60,11 +60,11 @@
       "translation": "Dan dari kejahatan orang yang dengki apabila dia dengki.",
       "audio_path": "audio/113_Al-Falaq_05.mp3",
       "segments": [
-        {"word": "وَمِن", "start": 0, "end": 500},
-        {"word": "شَرِّ", "start": 550, "end": 1000},
-        {"word": "حَاسِدٍ", "start": 1050, "end": 1800},
-        {"word": "إِذَا", "start": 1850, "end": 2300},
-        {"word": "حَسَدَ", "start": 2350, "end": 3500}
+        {"word": "وَمِن", "start": 0, "end": 2300},
+        {"word": "شَرِّ", "start": 2300, "end": 3200},
+        {"word": "حَاسِدٍ", "start": 3200, "end": 4400},
+        {"word": "إِذَا", "start": 4400, "end": 5650},
+        {"word": "حَسَدَ", "start": 5650, "end": 7500}
       ]
     }
   ]

@@ -185,7 +185,7 @@ class QuranViewModel extends ChangeNotifier {
         // Tunggu audio selesai + sedikit jeda sebelum kata berikutnya
         int duration =
             currentAyat.segments[index].end - currentAyat.segments[index].start;
-        await Future.delayed(Duration(milliseconds: duration + 400));
+        await Future.delayed(Duration(milliseconds: duration));
       }
     }
   }

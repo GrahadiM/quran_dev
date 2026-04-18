@@ -10,10 +10,10 @@
       "translation": "Katakanlah (Muhammad), Dialah Allah, Yang Maha Esa.",
       "audio_path": "audio/112_Al-Ikhlas_01.mp3",
       "segments": [
-        {"word": "قُلْ", "start": 0, "end": 500},
-        {"word": "هُوَ", "start": 550, "end": 1100},
-        {"word": "اللَّهُ", "start": 1150, "end": 2000},
-        {"word": "أَحَدٌ", "start": 2050, "end": 3500}
+        {"word": "قُلْ", "start": 0, "end": 550},
+        {"word": "هُوَ", "start": 550, "end": 1200},
+        {"word": "اللَّهُ", "start": 1200, "end": 2100},
+        {"word": "أَحَدٌ", "start": 2100, "end": 3500}
       ]
     },
     {
@@ -22,8 +22,8 @@
       "translation": "Allah tempat meminta segala sesuatu.",
       "audio_path": "audio/112_Al-Ikhlas_02.mp3",
       "segments": [
-        {"word": "اللَّهُ", "start": 0, "end": 1200},
-        {"word": "الصَّمَدُ", "start": 1250, "end": 2800}
+        {"word": "اللَّهُ", "start": 0, "end": 1300},
+        {"word": "الصَّمَدُ", "start": 1300, "end": 2800}
       ]
     },
     {
@@ -32,10 +32,10 @@
       "translation": "Dia tidak beranak dan tidak pula diperanakkan.",
       "audio_path": "audio/112_Al-Ikhlas_03.mp3",
       "segments": [
-        {"word": "لَمْ", "start": 0, "end": 400},
-        {"word": "يَلِدْ", "start": 450, "end": 1200},
-        {"word": "وَلَمْ", "start": 1250, "end": 1800},
-        {"word": "يُولَدْ", "start": 1850, "end": 3200}
+        {"word": "لَمْ", "start": 0, "end": 450},
+        {"word": "يَلِدْ", "start": 450, "end": 1300},
+        {"word": "وَلَمْ", "start": 1300, "end": 1900},
+        {"word": "يُولَدْ", "start": 1900, "end": 3200}
       ]
     },
     {
@@ -47,8 +47,8 @@
         {"word": "وَلَمْ", "start": 0, "end": 780},
         {"word": "يَكُن", "start": 780, "end": 1800},
         {"word": "لَّهُ", "start": 1800, "end": 2720},
-        {"word": "كُفُوًا", "start": 2720, "end": 3500},
-        {"word": "أَحَدٌ", "start": 3500, "end": 5000}
+        {"word": "كُفُوًا", "start": 2720, "end": 3550},
+        {"word": "أَحَدٌ", "start": 3550, "end": 5000}
       ]
     }
   ]
