@@ -68,8 +68,8 @@
       "audio_path": "audio/114_An-Nas_06.mp3",
       "segments": [
         {"word": "مِنَ", "start": 0, "end": 600},
-        {"word": "الْجِنَّةِ", "start": 600, "end": 3800},
-        {"word": "وَالنَّاسِ", "start": 3800, "end": 8500}
+        {"word": "الْجِنَّةِ", "start": 600, "end": 3500},
+        {"word": "وَالنَّاسِ", "start": 3500, "end": 8500}
       ]
     }
   ]
